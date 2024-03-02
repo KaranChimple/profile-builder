@@ -1,5 +1,5 @@
 import React from "react";
-import { Flex, Input, Button } from "antd";
+import { Flex, Input, Button, Dropdown } from "antd";
 import { RiGalleryLine } from "react-icons/ri";
 
 const styles = {
@@ -27,20 +27,14 @@ const styles = {
   subTitleInput: { fontWeight: "500", fontSize: "18px", lineHeight: "28px" },
   nameInput: { fontWeight: "600", fontSize: "16px", lineHeight: "19px" },
   emailInput: { fontWeight: "400", fontSize: "14px", lineHeight: "17px" },
-  addSectionsButton: {
-    fontWeight: "600",
-    fontSize: "14px",
-    lineHeight: "24px",
-    marginTop: "216px",
-    backgroundColor: "#EEEEEE",
-  },
+  
 };
 
 const { TextArea } = Input;
 
 const IntroView = () => {
   return (
-    <div style={{ minHeight: window.innerHeight, padding: "24px 32px" }}>
+    <div style={{ minHeight: window.innerHeight/1.3, padding: "24px 32px" }}>
       <Flex vertical={false} gap={12} align="center">
         <div style={styles.gallerySmallIconContainer}>
           <RiGalleryLine size={16} />
@@ -90,9 +84,8 @@ const IntroView = () => {
           style={styles.emailInput}
         />
       </Flex>
-      <Button type="dashed" block style={styles.addSectionsButton}>
-        + Add sections
-      </Button>
+      
+      
     </div>
   );
 };
