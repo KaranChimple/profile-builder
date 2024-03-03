@@ -11,7 +11,7 @@ class App extends Component {
       <Provider store={store}>
         <Layout>
           <NavBar />
-          <div style={{ height: "100%", flex: 1 }}>
+          <div style={{ height: "100%" }}>
             <Home />
           </div>
         </Layout>
