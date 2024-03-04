@@ -15,6 +15,11 @@ const styles = {
     overflow: "hidden",
     minHeight: window.innerHeight / 13,
   },
+  header: {
+    fontWeight: "700",
+    fontSize: "20px",
+    lineHeight: "28px",
+  },
 };
 
 const { TextArea } = Input;
@@ -38,12 +43,13 @@ const RichTextEditor = () => {
         <div className="editor-inner-with-header">
           <Flex vertical gap={12}>
             <Input
-              placeholder="Enter site title"
+              placeholder="Untitled"
               variant="borderless"
               maxLength={256}
+              style={styles.header}
             />
             <TextArea
-              placeholder="Enter site title"
+              placeholder="Write description here..."
               variant="borderless"
               maxLength={256}
               style={styles.description}

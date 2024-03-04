@@ -5,6 +5,9 @@ import IntroView from "./introView";
 import { SECTION_NAMES } from "../../utils/constants";
 import AboutView from "./aboutView";
 import SkillsetView from "./skillsetView";
+import ProjectsView from "./projectsView";
+import ExperienceView from "./experienceView";
+import CtaView from "./ctaView";
 
 const styles = {
   menuContainer: { width: "20%", marginLeft: "40%" },
@@ -64,6 +67,11 @@ const Home = () => {
       <IntroView sections={items} />
       {selectedSections.includes(SECTION_NAMES.ABOUT) && <AboutView />}
       {selectedSections.includes(SECTION_NAMES.SKILLSETS) && <SkillsetView />}
+      {selectedSections.includes(SECTION_NAMES.PROJECTS) && <ProjectsView />}
+      {selectedSections.includes(SECTION_NAMES.EXPERIENCE) && (
+        <ExperienceView />
+      )}
+      {selectedSections.includes(SECTION_NAMES.CTA) && <CtaView />}
       <div style={styles.dropdownContainer}>
         <Dropdown
           trigger={["click"]}
