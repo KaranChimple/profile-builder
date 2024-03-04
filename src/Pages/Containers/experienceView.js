@@ -20,6 +20,8 @@ const styles = {
     lineHeight: "28px",
     marginBottom: "16px",
     maxHeight: "55px",
+    resize: "none",
+    overflow: "hidden",
   },
   otherDetailsInput: {
     fontWeight: "500",

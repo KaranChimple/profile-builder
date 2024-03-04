@@ -19,6 +19,14 @@ const styles = {
     backgroundColor: "#EEEEEE",
   },
   dropdownContainer: { padding: "0 128px 0 16px", marginLeft: "37%" },
+  allSectionsAddedText: {
+    fontWeight: "600",
+    fontSize: "14px",
+    lineHeight: "24px",
+    color: "#000000",
+    padding: "64px 128px 32px 16px",
+    marginLeft: "37%",
+  },
 };
 
 const Home = () => {
@@ -72,17 +80,27 @@ const Home = () => {
         <ExperienceView />
       )}
       {selectedSections.includes(SECTION_NAMES.CTA) && <CtaView />}
-      <div style={styles.dropdownContainer}>
-        <Dropdown
-          trigger={["click"]}
-          menu={{ items, style: styles.menuContainer }}
-          placement="top"
-        >
-          <Button type="dashed" block style={styles.addSectionsButton}>
-            + Add sections
-          </Button>
-        </Dropdown>
-      </div>
+      {selectedSections.includes(SECTION_NAMES.ABOUT) &&
+      selectedSections.includes(SECTION_NAMES.SKILLSETS) &&
+      selectedSections.includes(SECTION_NAMES.PROJECTS) &&
+      selectedSections.includes(SECTION_NAMES.EXPERIENCE) &&
+      selectedSections.includes(SECTION_NAMES.CTA) ? (
+        <div style={styles.allSectionsAddedText}>
+          All sections added! Looks good.
+        </div>
+      ) : (
+        <div style={styles.dropdownContainer}>
+          <Dropdown
+            trigger={["click"]}
+            menu={{ items, style: styles.menuContainer }}
+            placement="top"
+          >
+            <Button type="dashed" block style={styles.addSectionsButton}>
+              + Add sections
+            </Button>
+          </Dropdown>
+        </div>
+      )}
     </div>
   );
 };
