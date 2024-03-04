@@ -8,7 +8,7 @@ const styles = {
     width: "25%",
     border: "1px solid #DADADA",
     backgroundColor: "#EEEEEE",
-    height: "55vh",
+    height: "56.5vh",
   },
   buttonContent: {
     fontWeight: "600",
