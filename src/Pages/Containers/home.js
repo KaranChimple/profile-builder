@@ -15,10 +15,10 @@ const styles = {
     fontWeight: "600",
     fontSize: "14px",
     lineHeight: "24px",
-    margin: "64px 0",
+    margin: "64px 64px 64px 0px",
     backgroundColor: "#EEEEEE",
   },
-  dropdownContainer: { padding: "0 16px 0 16px", marginLeft: "37%" },
+  dropdownContainer: { padding: "0 128px 0 16px", marginLeft: "37%" },
 };
 
 const Home = () => {

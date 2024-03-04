@@ -60,7 +60,7 @@ const { TextArea } = Input;
 const ProjectsView = () => {
   const [noOfProjects, setNoOfProjects] = useState(1);
 
-  const incrementSkills = () => {
+  const incrementProjects = () => {
     setNoOfProjects(noOfProjects + 1);
   };
 
@@ -75,7 +75,7 @@ const ProjectsView = () => {
         <Button
           type="text"
           style={{ height: "100%", width: "100%", borderRadius: "25px" }}
-          onClick={incrementSkills}
+          onClick={incrementProjects}
         >
           <Flex
             vertical
@@ -95,7 +95,7 @@ const ProjectsView = () => {
     <div className="editor-container" style={{ marginLeft: "37%" }}>
       <h1 style={styles.heading}>Projects</h1>
       <TextArea
-        placeholder="Enter site title"
+        placeholder="Add subtext here"
         variant="borderless"
         maxLength={256}
         style={styles.description}
