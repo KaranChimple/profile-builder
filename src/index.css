@@ -77,6 +77,11 @@ h1 {
   min-height: 40vh;
 }
 
+.editor-inner-with-header {
+  background: #fff;
+  margin: 4px;
+}
+
 .editor-input {
   min-height: 150px;
   resize: none;
@@ -95,6 +100,19 @@ h1 {
   position: absolute;
   text-overflow: ellipsis;
   top: 15px;
+  left: 10px;
+  font-size: 15px;
+  user-select: none;
+  display: inline-block;
+  pointer-events: none;
+}
+
+.editor-placeholder-without-toolbar {
+  color: #999;
+  overflow: hidden;
+  position: absolute;
+  text-overflow: ellipsis;
+  top: 30px;
   left: 10px;
   font-size: 15px;
   user-select: none;

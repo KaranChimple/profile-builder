@@ -4,6 +4,7 @@ import { Button, Dropdown } from "antd";
 import IntroView from "./introView";
 import { SECTION_NAMES } from "../../utils/constants";
 import AboutView from "./aboutView";
+import SkillsetView from "./skillsetView";
 
 const styles = {
   menuContainer: { width: "20%", marginLeft: "40%" },
@@ -14,6 +15,7 @@ const styles = {
     margin: "64px 0",
     backgroundColor: "#EEEEEE",
   },
+  dropdownContainer: { padding: "0 16px 0 16px", marginLeft: "37%" },
 };
 
 const Home = () => {
@@ -61,7 +63,8 @@ const Home = () => {
     <div>
       <IntroView sections={items} />
       {selectedSections.includes(SECTION_NAMES.ABOUT) && <AboutView />}
-      <div style={{ padding: "0 16px 0 16px" }}>
+      {selectedSections.includes(SECTION_NAMES.SKILLSETS) && <SkillsetView />}
+      <div style={styles.dropdownContainer}>
         <Dropdown
           trigger={["click"]}
           menu={{ items, style: styles.menuContainer }}
