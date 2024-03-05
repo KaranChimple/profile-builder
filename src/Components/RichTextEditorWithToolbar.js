@@ -1,4 +1,5 @@
 import React from "react";
+import { $getRoot, $getSelection } from "lexical";
 import { LexicalComposer } from "@lexical/react/LexicalComposer";
 import { RichTextPlugin } from "@lexical/react/LexicalRichTextPlugin";
 import { ContentEditable } from "@lexical/react/LexicalContentEditable";
@@ -10,6 +11,7 @@ import { CodeHighlightNode, CodeNode } from "@lexical/code";
 import { AutoLinkNode, LinkNode } from "@lexical/link";
 import { HistoryPlugin } from "@lexical/react/LexicalHistoryPlugin";
 import { ListPlugin } from "@lexical/react/LexicalListPlugin";
+import { OnChangePlugin } from "@lexical/react/LexicalOnChangePlugin";
 import ToolbarPlugin from "../Plugins/ToolbarPlugin";
 import LexicalTheme from "../utils/lexicalTheme";
 
@@ -17,7 +19,11 @@ const styles = {
   aboutMeHeader: { padding: "8px 0 8px 16px" },
 };
 
-const RichTextEditorWithToolbar = () => {
+const RichTextEditorWithToolbar = ({
+  aboutMeJsonData = {},
+  isSaveClicked = false,
+  setAboutMeJsonData = () => {},
+}) => {
   const CustomPlaceholder = () => {
     return <div className="editor-placeholder">Start writing...</div>;
   };
@@ -25,6 +31,8 @@ const RichTextEditorWithToolbar = () => {
   const editorConfig = {
     // The editor theme
     theme: LexicalTheme,
+    // set the initial content
+    editorState: aboutMeJsonData,
     // Handling of errors during update
     onError(error) {
       throw error;
@@ -45,9 +53,22 @@ const RichTextEditorWithToolbar = () => {
     ],
   };
 
+  function onChange(editorState) {
+    editorState.read(() => {
+      const json = editorState.toJSON();
+      setAboutMeJsonData(json);
+    });
+  }
+
   return (
     <LexicalComposer initialConfig={editorConfig}>
-      <div className="editor-container" style={{ marginLeft: "37%" }}>
+      <div
+        className="editor-container"
+        style={{
+          marginLeft: "37%",
+          border: isSaveClicked ? "0px" : "1.2px solid #828282",
+        }}
+      >
         <h1 style={styles.aboutMeHeader}>About Me</h1>
         <ToolbarPlugin />
         <div className="editor-inner">
@@ -58,6 +79,7 @@ const RichTextEditorWithToolbar = () => {
           />
           <HistoryPlugin />
           <ListPlugin />
+          <OnChangePlugin onChange={onChange} />
         </div>
       </div>
     </LexicalComposer>
