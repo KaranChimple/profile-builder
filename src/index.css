@@ -80,6 +80,7 @@ h1 {
 .editor-inner-with-header {
   background: #fff;
   margin: 4px;
+  border-radius: 20px;
 }
 
 .editor-input {

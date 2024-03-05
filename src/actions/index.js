@@ -6,3 +6,10 @@ export const setAboutMe = (data) => {
     payload: data,
   };
 };
+
+export const setSkillsets = (data) => {
+  return {
+    type: ACTION_TYPES.SET_SKILL_SETS_DATA,
+    payload: data,
+  };
+};

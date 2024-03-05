@@ -1,5 +1,4 @@
 import { ACTION_TYPES } from "../actions/ActionTypes";
-import { EMPTY_CONTENT } from "../utils/constants";
 
 const initialState = {
   data: {},

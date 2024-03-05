@@ -1,5 +1,4 @@
 import React from "react";
-import { $getRoot, $getSelection } from "lexical";
 import { LexicalComposer } from "@lexical/react/LexicalComposer";
 import { RichTextPlugin } from "@lexical/react/LexicalRichTextPlugin";
 import { ContentEditable } from "@lexical/react/LexicalContentEditable";
@@ -73,7 +72,12 @@ const RichTextEditorWithToolbar = ({
         <ToolbarPlugin />
         <div className="editor-inner">
           <RichTextPlugin
-            contentEditable={<ContentEditable className="editor-input" />}
+            contentEditable={
+              <ContentEditable
+                className="editor-input"
+                style={{ maxHeight: "38vh", overflow: "hidden" }}
+              />
+            }
             placeholder={<CustomPlaceholder />}
             ErrorBoundary={LexicalErrorBoundary}
           />
