@@ -1,5 +1,5 @@
-import React from "react";
-import { Flex, Input } from "antd";
+import React, { useRef, useState } from "react";
+import { Flex, Image, Input } from "antd";
 import { RiGalleryLine } from "react-icons/ri";
 
 const styles = {
@@ -43,7 +43,20 @@ const styles = {
 
 const { TextArea } = Input;
 
-const LeftSection = () => {
+const LeftSection = ({
+  smallInputFile,
+  bigInputFile,
+  smallImage = "",
+  bigImage = "",
+  siteTitle = "",
+  name = "",
+  email = "",
+  handleChange = () => {},
+  onButtonClick = () => {},
+  onSiteTitleChange = () => {},
+  onNameChange = () => {},
+  onEmailChange = () => {},
+}) => {
   return (
     <div style={{ minWidth: "35%" }}>
       <Flex
@@ -52,12 +65,37 @@ const LeftSection = () => {
         align="center"
         style={{ marginTop: "12px" }}
       >
-        <div style={styles.gallerySmallIconContainer}>
-          <RiGalleryLine size={16} />
-        </div>
+        <input
+          type="file"
+          id="small-image"
+          ref={smallInputFile}
+          onChange={(e) => handleChange(e, true)}
+          style={{ display: "none" }}
+        />
+        {smallImage ? (
+          <Image
+            src={smallImage}
+            width={"24px"}
+            height={"24px"}
+            style={{
+              ...styles.gallerySmallIconContainer,
+              ...{ padding: "0px", border: "0px" },
+            }}
+          />
+        ) : (
+          <button
+            onClick={() => onButtonClick(false)}
+            style={styles.gallerySmallIconContainer}
+          >
+            <RiGalleryLine size={16} />
+          </button>
+        )}
+
         <Input
           placeholder="Enter site title"
           variant="borderless"
+          value={siteTitle}
+          onChange={onSiteTitleChange}
           maxLength={256}
           style={styles.titleInput}
         />
@@ -66,22 +104,50 @@ const LeftSection = () => {
         vertical={false}
         gap={108}
         align="center"
-        style={{ marginTop: window.innerHeight / 5 }}
+        style={{ marginTop: window.innerHeight / 12 }}
       >
-        <div style={styles.galleryBigIconContainer}>
-          <RiGalleryLine size={window.innerHeight / 3.5} />
+        <div>
+          <input
+            type="file"
+            id="small-image"
+            ref={bigInputFile}
+            onChange={(e) => handleChange(e, false)}
+            style={{ display: "none" }}
+          />
+          {bigImage ? (
+            <Image
+              src={bigImage}
+              width={window.innerHeight / 2}
+              height={window.innerHeight / 2}
+              style={{
+                ...styles.galleryBigIconContainer,
+                ...{ padding: "0px", border: "0px" },
+              }}
+            />
+          ) : (
+            <button
+              onClick={() => onButtonClick(true)}
+              style={styles.galleryBigIconContainer}
+            >
+              <RiGalleryLine size={window.innerHeight / 3.5} />
+            </button>
+          )}
         </div>
       </Flex>
       <Flex vertical gap={12} style={{ marginTop: "40px" }}>
         <Input
           placeholder="Your name here"
           variant="borderless"
+          value={name}
+          onChange={onNameChange}
           maxLength={256}
           style={styles.nameInput}
         />
         <Input
           placeholder="Enter email"
           variant="borderless"
+          value={email}
+          onChange={onEmailChange}
           maxLength={256}
           style={styles.emailInput}
         />
@@ -90,19 +156,28 @@ const LeftSection = () => {
   );
 };
 
-const RightSection = () => {
+const RightSection = ({
+  title = "",
+  subTitle = "",
+  onTitleChange = () => {},
+  onSubTitleChange = () => {},
+}) => {
   return (
     <>
       <Flex vertical gap={12}>
         <TextArea
           placeholder="Click to add title"
           variant="borderless"
+          value={title}
+          onChange={onTitleChange}
           maxLength={256}
           style={styles.centerTitleInput}
         />
         <TextArea
           placeholder="Click to add subtitle"
           variant="borderless"
+          value={subTitle}
+          onChange={onSubTitleChange}
           maxLength={256}
           style={styles.subTitleInput}
         />
@@ -112,6 +187,54 @@ const RightSection = () => {
 };
 
 const IntroView = () => {
+  const smallInputFile = useRef(null);
+  const bigInputFile = useRef(null);
+
+  const [smallImage, setSmallImage] = useState("");
+  const [bigImage, setBigImage] = useState("");
+  const [siteTitle, setSiteTitle] = useState("");
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [title, setTitle] = useState("");
+  const [subTitle, setSubTitle] = useState("");
+
+  const handleChange = (e, isSmall = false) => {
+    if (isSmall) {
+      setSmallImage(URL.createObjectURL(e.target.files[0]));
+    } else {
+      setBigImage(URL.createObjectURL(e.target.files[0]));
+    }
+  };
+
+  const onButtonClick = (isBigImage = false) => {
+    // `current` points to the mounted file input element
+    if (isBigImage) {
+      bigInputFile.current.click();
+    } else {
+      smallInputFile.current.click();
+    }
+  };
+
+  const onSiteTitleChange = (e) => {
+    setSiteTitle(e.target.value);
+  };
+
+  const onNameChange = (e) => {
+    setName(e.target.value);
+  };
+
+  const onEmailChange = (e) => {
+    setEmail(e.target.value);
+  };
+
+  const onTitleChange = (e) => {
+    setTitle(e.target.value);
+  };
+
+  const onSubTitleChange = (e) => {
+    setSubTitle(e.target.value);
+  };
+
   return (
     <Flex
       vertical={false}
@@ -119,8 +242,26 @@ const IntroView = () => {
       align="center"
       style={styles.parentContainer}
     >
-      <LeftSection />
-      <RightSection />
+      <LeftSection
+        smallInputFile={smallInputFile}
+        bigInputFile={bigInputFile}
+        smallImage={smallImage}
+        bigImage={bigImage}
+        siteTitle={siteTitle}
+        name={name}
+        email={email}
+        handleChange={handleChange}
+        onButtonClick={onButtonClick}
+        onSiteTitleChange={onSiteTitleChange}
+        onNameChange={onNameChange}
+        onEmailChange={onEmailChange}
+      />
+      <RightSection
+        title={title}
+        subTitle={subTitle}
+        onTitleChange={onTitleChange}
+        onSubTitleChange={onSubTitleChange}
+      />
     </Flex>
   );
 };

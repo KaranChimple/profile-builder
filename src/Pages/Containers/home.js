@@ -69,7 +69,6 @@ const Home = () => {
     },
   ];
 
-  console.log("@@@ home", selectedSections);
   return (
     <div>
       <IntroView sections={items} />
