@@ -4,6 +4,7 @@ import { GoPlus } from "react-icons/go";
 import RichTextEditor from "../../Components/RichTextEditor";
 import { useDispatch, useSelector } from "react-redux";
 import { setSkillsets } from "../../actions";
+import SaveAndCancelButtonContainer from "../../Components/SaveAndCancelContainer";
 
 const styles = {
   addSkillsSection: {
@@ -23,20 +24,6 @@ const styles = {
     margin: "8px 30% 0px 37%",
     paddingLeft: "18px",
     borderRadius: "10px",
-  },
-  saveAndCancelButtonContainer: { marginLeft: "37%", maxWidth: "600px" },
-  cancelButton: {
-    fontWeight: "600",
-    fontSize: "13px",
-    lineHeight: "16px",
-    color: "#000",
-  },
-  saveButton: {
-    borderRadius: "50px",
-    fontWeight: "700",
-    fontSize: "13px",
-    lineHeight: "16px",
-    color: "#fff",
   },
 };
 
@@ -94,28 +81,11 @@ const SkillsetView = () => {
 
   return (
     <>
-      {!isSaveClicked && (
-        <Flex
-          vertical={false}
-          justify="flex-end"
-          style={styles.saveAndCancelButtonContainer}
-        >
-          <Button
-            type="text"
-            onClick={onCancelPress}
-            style={styles.cancelButton}
-          >
-            Cancel
-          </Button>
-          <Button
-            type="primary"
-            onClick={onSavePress}
-            style={styles.saveButton}
-          >
-            Save
-          </Button>
-        </Flex>
-      )}
+      <SaveAndCancelButtonContainer
+        isSaveClicked={isSaveClicked}
+        onCancelPress={onCancelPress}
+        onSavePress={onSavePress}
+      />
       <Flex
         wrap="wrap"
         vertical={false}

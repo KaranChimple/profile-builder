@@ -4,6 +4,7 @@ import AddProjectEmptyContainer from "../../Components/AddProjectEmptyContainer"
 import ProjectContainer from "../../Components/ProjectContainer";
 import { useDispatch, useSelector } from "react-redux";
 import { setProjects } from "../../actions";
+import SaveAndCancelButtonContainer from "../../Components/SaveAndCancelContainer";
 
 const styles = {
   heading: { padding: "8px 0 8px 16px" },
@@ -14,25 +15,6 @@ const styles = {
     resize: "none",
     overflow: "hidden",
     minHeight: window.innerHeight / 13,
-  },
-
-  saveAndCancelButtonContainer: {
-    marginLeft: "37%",
-    maxWidth: "600px",
-    marginTop: "32px",
-  },
-  cancelButton: {
-    fontWeight: "600",
-    fontSize: "13px",
-    lineHeight: "16px",
-    color: "#000",
-  },
-  saveButton: {
-    borderRadius: "50px",
-    fontWeight: "700",
-    fontSize: "13px",
-    lineHeight: "16px",
-    color: "#fff",
   },
 };
 
@@ -83,28 +65,11 @@ const ProjectsView = () => {
 
   return (
     <>
-      {!isSaveClicked && (
-        <Flex
-          vertical={false}
-          justify="flex-end"
-          style={styles.saveAndCancelButtonContainer}
-        >
-          <Button
-            type="text"
-            onClick={onCancelPress}
-            style={styles.cancelButton}
-          >
-            Cancel
-          </Button>
-          <Button
-            type="primary"
-            onClick={onSavePress}
-            style={styles.saveButton}
-          >
-            Save
-          </Button>
-        </Flex>
-      )}
+      <SaveAndCancelButtonContainer
+        isSaveClicked={isSaveClicked}
+        onCancelPress={onCancelPress}
+        onSavePress={onSavePress}
+      />
       <div
         className="editor-container"
         style={{
@@ -131,7 +96,9 @@ const ProjectsView = () => {
                 projectsData={projectsData}
               />
             ))}
-          <AddProjectEmptyContainer incrementProjects={incrementProjects} />
+          {!isSaveClicked && (
+            <AddProjectEmptyContainer incrementProjects={incrementProjects} />
+          )}
         </Flex>
       </div>
     </>

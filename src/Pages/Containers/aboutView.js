@@ -4,6 +4,7 @@ import { Button, Flex } from "antd";
 import { useSelector, useDispatch } from "react-redux";
 import { EMPTY_CONTENT } from "../../utils/constants";
 import { setAboutMe } from "../../actions";
+import SaveAndCancelButtonContainer from "../../Components/SaveAndCancelContainer";
 
 const styles = {
   saveAndCancelButtonContainer: { marginLeft: "37%", maxWidth: "600px" },
@@ -47,28 +48,11 @@ const AboutView = () => {
 
   return (
     <>
-      {!isSaveClicked && (
-        <Flex
-          vertical={false}
-          justify="flex-end"
-          style={styles.saveAndCancelButtonContainer}
-        >
-          <Button
-            type="text"
-            onClick={onCancelPress}
-            style={styles.cancelButton}
-          >
-            Cancel
-          </Button>
-          <Button
-            type="primary"
-            onClick={onSavePress}
-            style={styles.saveButton}
-          >
-            Save
-          </Button>
-        </Flex>
-      )}
+      <SaveAndCancelButtonContainer
+        isSaveClicked={isSaveClicked}
+        onCancelPress={onCancelPress}
+        onSavePress={onSavePress}
+      />
       <RichTextEditorWithToolbar
         setAboutMeJsonData={setAboutMeJsonData}
         aboutMeJsonData={aboutMeJsonData}
