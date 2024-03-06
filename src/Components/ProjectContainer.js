@@ -119,7 +119,7 @@ const ProjectContainer = ({
     <div style={styles.projectContainer}>
       <input
         type="file"
-        id={`image-${index}`}
+        id={`project-image-${index}`}
         ref={imageFile}
         onChange={handleChange}
         style={{ display: "none" }}
@@ -135,7 +135,7 @@ const ProjectContainer = ({
         />
       ) : (
         <button
-          onClick={() => onButtonClick(false)}
+          onClick={onButtonClick}
           style={styles.gallerySmallIconContainer}
         >
           <RiGalleryLine size={16} />
