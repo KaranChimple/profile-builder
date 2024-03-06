@@ -1,23 +1,27 @@
-import React, { Component } from "react";
+import React, { useState } from "react";
 import { Provider } from "react-redux";
 import { Layout } from "antd";
 import store from "../../store";
 import NavBar from "../NavBar";
 import Home from "../Containers/home";
 
-class App extends Component {
-  render() {
-    return (
-      <Provider store={store}>
-        <Layout>
-          <NavBar />
-          <div style={{ height: "100%" }}>
-            <Home />
-          </div>
-        </Layout>
-      </Provider>
-    );
-  }
-}
+const App = () => {
+  const [isAppPublished, setIsAppPublished] = useState(false);
+  return (
+    <Provider store={store}>
+      <Layout>
+        {!isAppPublished && (
+          <NavBar
+            isAppPublished={isAppPublished}
+            setIsAppPublished={setIsAppPublished}
+          />
+        )}
+        <div style={{ height: "100%" }}>
+          <Home isAppPublished={isAppPublished} />
+        </div>
+      </Layout>
+    </Provider>
+  );
+};
 
 export default App;

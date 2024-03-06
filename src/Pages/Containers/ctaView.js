@@ -44,7 +44,7 @@ const styles = {
 
 const { TextArea } = Input;
 
-const CtaView = () => {
+const CtaView = ({ isAppPublished = false }) => {
   const dispatch = useDispatch();
 
   const initialData = useSelector(({ cta }) => cta.data);
@@ -71,6 +71,13 @@ const CtaView = () => {
       setContactimage(initialData?.contactDetails?.image || "");
     }
   }, [initialData]);
+
+  useEffect(() => {
+    if (isAppPublished) {
+      onSavePress();
+    }
+    // eslint-disable-next-line
+  }, [isAppPublished]);
 
   const incrementBlogs = () => {
     setNoOfBlogs(noOfBlogs + 1);

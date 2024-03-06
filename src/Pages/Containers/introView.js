@@ -1,6 +1,8 @@
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { Flex, Image, Input } from "antd";
 import { RiGalleryLine } from "react-icons/ri";
+import { useDispatch, useSelector } from "react-redux";
+import { setIntroDetails } from "../../actions";
 
 const styles = {
   parentContainer: {
@@ -186,7 +188,11 @@ const RightSection = ({
   );
 };
 
-const IntroView = () => {
+const IntroView = ({ isAppPublished = false }) => {
+  const dispatch = useDispatch();
+
+  const initialData = useSelector(({ intro }) => intro.data);
+
   const smallInputFile = useRef(null);
   const bigInputFile = useRef(null);
 
@@ -197,6 +203,35 @@ const IntroView = () => {
   const [email, setEmail] = useState("");
   const [title, setTitle] = useState("");
   const [subTitle, setSubTitle] = useState("");
+
+  useEffect(() => {
+    if (isAppPublished) {
+      dispatch(
+        setIntroDetails({
+          smallImage: smallImage,
+          bigImage: bigImage,
+          siteTitle: siteTitle,
+          name: name,
+          email: email,
+          title: title,
+          subTitle: subTitle,
+        })
+      );
+    }
+    // eslint-disable-next-line
+  }, [isAppPublished]);
+
+  useEffect(() => {
+    if (Object.keys(initialData?.data || []).length > 0) {
+      setSmallImage(initialData?.data?.smallImage);
+      setBigImage(initialData?.data?.bigImage);
+      setSiteTitle(initialData?.data?.siteTitle);
+      setName(initialData?.data?.name);
+      setEmail(initialData?.data?.email);
+      setTitle(initialData?.data?.title);
+      setSubTitle(initialData?.data?.subTitle);
+    }
+  }, [initialData]);
 
   const handleChange = (e, isSmall = false) => {
     if (isSmall) {

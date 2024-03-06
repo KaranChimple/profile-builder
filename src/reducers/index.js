@@ -4,6 +4,7 @@ import skillsetsReducer from "./skillsetsReducer";
 import projectsReducer from "./projectsReducer";
 import experienceReducer from "./experienceReducer";
 import ctaReducer from "./ctaReducer";
+import introReducer from "./introReducer";
 
 const rootReducer = combineReducers({
   aboutMe: aboutMeReducer,
@@ -11,6 +12,7 @@ const rootReducer = combineReducers({
   projects: projectsReducer,
   experience: experienceReducer,
   cta: ctaReducer,
+  intro: introReducer,
 });
 
 export default rootReducer;

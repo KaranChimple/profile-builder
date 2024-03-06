@@ -29,7 +29,7 @@ const styles = {
   },
 };
 
-const Home = () => {
+const Home = ({ isAppPublished = false }) => {
   const [selectedSections, setSelectedSections] = useState([]);
   const items = [
     {
@@ -71,35 +71,45 @@ const Home = () => {
 
   return (
     <div>
-      <IntroView sections={items} />
-      {selectedSections.includes(SECTION_NAMES.ABOUT) && <AboutView />}
-      {selectedSections.includes(SECTION_NAMES.SKILLSETS) && <SkillsetView />}
-      {selectedSections.includes(SECTION_NAMES.PROJECTS) && <ProjectsView />}
+      <IntroView sections={items} isAppPublished={isAppPublished} />
+      {selectedSections.includes(SECTION_NAMES.ABOUT) && (
+        <AboutView isAppPublished={isAppPublished} />
+      )}
+      {selectedSections.includes(SECTION_NAMES.SKILLSETS) && (
+        <SkillsetView isAppPublished={isAppPublished} />
+      )}
+      {selectedSections.includes(SECTION_NAMES.PROJECTS) && (
+        <ProjectsView isAppPublished={isAppPublished} />
+      )}
       {selectedSections.includes(SECTION_NAMES.EXPERIENCE) && (
-        <ExperienceView />
+        <ExperienceView isAppPublished={isAppPublished} />
       )}
-      {selectedSections.includes(SECTION_NAMES.CTA) && <CtaView />}
-      {selectedSections.includes(SECTION_NAMES.ABOUT) &&
-      selectedSections.includes(SECTION_NAMES.SKILLSETS) &&
-      selectedSections.includes(SECTION_NAMES.PROJECTS) &&
-      selectedSections.includes(SECTION_NAMES.EXPERIENCE) &&
-      selectedSections.includes(SECTION_NAMES.CTA) ? (
-        <div style={styles.allSectionsAddedText}>
-          All sections added! Looks good.
-        </div>
-      ) : (
-        <div style={styles.dropdownContainer}>
-          <Dropdown
-            trigger={["click"]}
-            menu={{ items, style: styles.menuContainer }}
-            placement="top"
-          >
-            <Button type="dashed" block style={styles.addSectionsButton}>
-              + Add sections
-            </Button>
-          </Dropdown>
-        </div>
+      {selectedSections.includes(SECTION_NAMES.CTA) && (
+        <CtaView isAppPublished={isAppPublished} />
       )}
+      {!isAppPublished ? (
+        selectedSections.includes(SECTION_NAMES.ABOUT) &&
+        selectedSections.includes(SECTION_NAMES.SKILLSETS) &&
+        selectedSections.includes(SECTION_NAMES.PROJECTS) &&
+        selectedSections.includes(SECTION_NAMES.EXPERIENCE) &&
+        selectedSections.includes(SECTION_NAMES.CTA) ? (
+          <div style={styles.allSectionsAddedText}>
+            All sections added! Looks good.
+          </div>
+        ) : (
+          <div style={styles.dropdownContainer}>
+            <Dropdown
+              trigger={["click"]}
+              menu={{ items, style: styles.menuContainer }}
+              placement="top"
+            >
+              <Button type="dashed" block style={styles.addSectionsButton}>
+                + Add sections
+              </Button>
+            </Dropdown>
+          </div>
+        )
+      ) : null}
     </div>
   );
 };

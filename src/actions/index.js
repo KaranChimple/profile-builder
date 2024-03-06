@@ -34,3 +34,10 @@ export const setCta = (data) => {
     payload: data,
   };
 };
+
+export const setIntroDetails = (data) => {
+  return {
+    type: ACTION_TYPES.SET_INTROVIEW,
+    payload: data,
+  };
+};

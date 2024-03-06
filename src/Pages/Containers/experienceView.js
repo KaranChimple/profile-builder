@@ -34,7 +34,7 @@ const styles = {
 
 const { TextArea } = Input;
 
-const ExperienceView = () => {
+const ExperienceView = ({ isAppPublished = false }) => {
   const dispatch = useDispatch();
 
   const initialData = useSelector(({ experience }) => experience.data);
@@ -55,9 +55,12 @@ const ExperienceView = () => {
     }
   }, [initialData]);
 
-  const incrementExperiences = () => {
-    setNoOfExperiences(noOfExperiences + 1);
-  };
+  useEffect(() => {
+    if (isAppPublished) {
+      onSavePress();
+    }
+    // eslint-disable-next-line
+  }, [isAppPublished]);
 
   const onCancelPress = () => {
     setNoOfExperiences(1);
@@ -71,6 +74,10 @@ const ExperienceView = () => {
         experience: experienceData,
       })
     );
+  };
+
+  const incrementExperiences = () => {
+    setNoOfExperiences(noOfExperiences + 1);
   };
 
   const onDescriptionChange = (e) => {

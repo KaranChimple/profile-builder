@@ -27,7 +27,7 @@ const styles = {
   },
 };
 
-const SkillsetView = () => {
+const SkillsetView = ({ isAppPublished = false }) => {
   const dispatch = useDispatch();
 
   const initialData = useSelector(({ skillsets }) => skillsets.data);
@@ -42,6 +42,13 @@ const SkillsetView = () => {
       setSkillsData(initialData);
     }
   }, [initialData]);
+
+  useEffect(() => {
+    if (isAppPublished) {
+      onSavePress();
+    }
+    // eslint-disable-next-line
+  }, [isAppPublished]);
 
   const incrementSkills = () => {
     setNoOfSkills(noOfSkills + 1);

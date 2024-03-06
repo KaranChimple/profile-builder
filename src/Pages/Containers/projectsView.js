@@ -1,4 +1,4 @@
-import { Button, Flex, Input } from "antd";
+import { Flex, Input } from "antd";
 import React, { useEffect, useState } from "react";
 import AddProjectEmptyContainer from "../../Components/AddProjectEmptyContainer";
 import ProjectContainer from "../../Components/ProjectContainer";
@@ -20,7 +20,7 @@ const styles = {
 
 const { TextArea } = Input;
 
-const ProjectsView = () => {
+const ProjectsView = ({ isAppPublished = false }) => {
   const dispatch = useDispatch();
 
   const initialData = useSelector(({ projects }) => projects.data);
@@ -40,6 +40,13 @@ const ProjectsView = () => {
       setProjectsData(initialData?.projects);
     }
   }, [initialData]);
+
+  useEffect(() => {
+    if (isAppPublished) {
+      onSavePress();
+    }
+    // eslint-disable-next-line
+  }, [isAppPublished]);
 
   const incrementProjects = () => {
     setNoOfProjects(noOfProjects + 1);

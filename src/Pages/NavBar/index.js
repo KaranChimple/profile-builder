@@ -2,7 +2,10 @@ import React from "react";
 import { Menu, Button } from "antd";
 import { IoIosInfinite } from "react-icons/io";
 
-const NavBar = () => {
+const NavBar = ({ setIsAppPublished = () => {}, isAppPublished = false }) => {
+  const onChangeAppPublish = () => {
+    setIsAppPublished(!isAppPublished);
+  };
   return (
     <Menu
       selectable={false}
@@ -27,7 +30,7 @@ const NavBar = () => {
           <span>Preview</span>
         </Menu.Item>
         <Menu.Item key="5">
-          <Button type="primary" shape="round">
+          <Button type="primary" shape="round" onClick={onChangeAppPublish}>
             Publish
           </Button>
         </Menu.Item>
