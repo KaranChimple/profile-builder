@@ -56,6 +56,7 @@ const CtaView = ({ isAppPublished = false }) => {
   const [contactImage, setContactimage] = useState("");
   const [blogsData, setBlogsData] = useState([]);
   const [isSaveClicked, setIsSaveClicked] = useState(false);
+  const [areInputsDisabled, setAreInputsDisabled] = useState(false);
 
   useEffect(() => {
     if (
@@ -100,6 +101,7 @@ const CtaView = ({ isAppPublished = false }) => {
         },
       })
     );
+    setAreInputsDisabled(true);
   };
 
   const onDescriptionChange = (e) => {
@@ -151,6 +153,7 @@ const CtaView = ({ isAppPublished = false }) => {
         <TextArea
           placeholder="Add subtext here"
           variant="borderless"
+          disabled={areInputsDisabled}
           value={description}
           onChange={onDescriptionChange}
           maxLength={256}
@@ -164,6 +167,7 @@ const CtaView = ({ isAppPublished = false }) => {
                 index={index}
                 blogsData={blogsData}
                 setBlogsData={setBlogsData}
+                areInputsDisabled={areInputsDisabled}
               />
             ))}
           {!isSaveClicked && <AddProjectEmptyContainer />}
@@ -177,6 +181,7 @@ const CtaView = ({ isAppPublished = false }) => {
         contactImage={contactImage}
         setContactimage={setContactimage}
         isSaveClicked={isSaveClicked}
+        areInputsDisabled={areInputsDisabled}
       />
     </>
   );

@@ -29,6 +29,7 @@ const ProjectsView = ({ isAppPublished = false }) => {
   const [description, setDescription] = useState("");
   const [projectsData, setProjectsData] = useState([]);
   const [isSaveClicked, setIsSaveClicked] = useState(false);
+  const [areInputsDisabled, setAreInputsDisabled] = useState(false);
 
   useEffect(() => {
     if (
@@ -64,6 +65,7 @@ const ProjectsView = ({ isAppPublished = false }) => {
         projects: projectsData,
       })
     );
+    setAreInputsDisabled(true);
   };
 
   const onDescriptionChange = (e) => {
@@ -88,6 +90,7 @@ const ProjectsView = ({ isAppPublished = false }) => {
         <TextArea
           placeholder="Add subtext here"
           variant="borderless"
+          disabled={areInputsDisabled}
           maxLength={256}
           value={description}
           onChange={onDescriptionChange}
@@ -101,6 +104,7 @@ const ProjectsView = ({ isAppPublished = false }) => {
                 index={index}
                 setProjectsData={setProjectsData}
                 projectsData={projectsData}
+                areInputsDisabled={areInputsDisabled}
               />
             ))}
           {!isSaveClicked && (

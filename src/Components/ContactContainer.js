@@ -37,6 +37,7 @@ const ContactContainer = ({
   contactImage = "",
   setContactimage = () => {},
   isSaveClicked = false,
+  areInputsDisabled = false,
 }) => {
   const imageFile = useRef(null);
 
@@ -73,6 +74,7 @@ const ContactContainer = ({
       <Input
         placeholder="Enter title here..."
         variant="borderless"
+        disabled={areInputsDisabled}
         value={contactTitle}
         onChange={(e) => onChange(e, "title")}
         maxLength={256}
@@ -81,6 +83,7 @@ const ContactContainer = ({
       <Input.TextArea
         placeholder="Add subtext here"
         variant="borderless"
+        disabled={areInputsDisabled}
         value={contactDescription}
         onChange={(e) => onChange(e, "description")}
         maxLength={256}
@@ -110,6 +113,7 @@ const ContactContainer = ({
           />
         ) : (
           <button
+            disabled={areInputsDisabled}
             onClick={onButtonClick}
             style={{ ...styles.gallerySmallIconContainer, ...{ width: "8%" } }}
           >

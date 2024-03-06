@@ -43,6 +43,7 @@ const ExperienceView = ({ isAppPublished = false }) => {
   const [description, setDescription] = useState("");
   const [experienceData, setExperienceData] = useState([]);
   const [isSaveClicked, setIsSaveClicked] = useState(false);
+  const [areInputsDisabled, setAreInputsDisabled] = useState(false);
 
   useEffect(() => {
     if (
@@ -68,6 +69,7 @@ const ExperienceView = ({ isAppPublished = false }) => {
 
   const onSavePress = () => {
     setIsSaveClicked(true);
+    setAreInputsDisabled(true);
     dispatch(
       setExperience({
         description,
@@ -130,6 +132,7 @@ const ExperienceView = ({ isAppPublished = false }) => {
           placeholder="Add subtext here"
           variant="borderless"
           value={description}
+          disabled={areInputsDisabled}
           onChange={onDescriptionChange}
           maxLength={256}
           style={styles.description}
@@ -142,6 +145,7 @@ const ExperienceView = ({ isAppPublished = false }) => {
                 index={index}
                 setExperienceData={setExperienceData}
                 experienceData={experienceData}
+                areInputsDisabled={areInputsDisabled}
               />
             ))}
           {!isSaveClicked && <AddProjectEmptyContainer />}

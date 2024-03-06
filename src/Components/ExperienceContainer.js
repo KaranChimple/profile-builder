@@ -43,6 +43,7 @@ const ExperienceContainer = ({
   index = 0,
   setExperienceData = () => {},
   experienceData = [],
+  areInputsDisabled = false,
 }) => {
   const imageFile = useRef(null);
 
@@ -166,6 +167,7 @@ const ExperienceContainer = ({
           />
         ) : (
           <button
+            disabled={areInputsDisabled}
             onClick={onButtonClick}
             style={styles.gallerySmallIconContainer}
           >
@@ -177,6 +179,7 @@ const ExperienceContainer = ({
           <Input
             placeholder="Enter Company title"
             variant="borderless"
+            disabled={areInputsDisabled}
             value={title}
             onChange={(e) => onChange(e, "title")}
             maxLength={256}
@@ -185,6 +188,7 @@ const ExperienceContainer = ({
           <Input
             placeholder="Enter Designation"
             variant="borderless"
+            disabled={areInputsDisabled}
             value={designation}
             onChange={(e) => onChange(e, "designation")}
             maxLength={256}
@@ -197,6 +201,7 @@ const ExperienceContainer = ({
         <Input
           placeholder="+ Add location"
           variant="borderless"
+          disabled={areInputsDisabled}
           value={location}
           onChange={(e) => onChange(e, "location")}
           maxLength={256}
@@ -205,6 +210,7 @@ const ExperienceContainer = ({
         <Input
           placeholder="+ Add timeline"
           variant="borderless"
+          disabled={areInputsDisabled}
           value={timeline}
           onChange={(e) => onChange(e, "timeline")}
           maxLength={256}
@@ -215,6 +221,7 @@ const ExperienceContainer = ({
       <Input.TextArea
         placeholder="Add Description"
         variant="borderless"
+        disabled={areInputsDisabled}
         value={description}
         onChange={(e) => onChange(e, "description")}
         maxLength={256}

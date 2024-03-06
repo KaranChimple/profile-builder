@@ -35,6 +35,7 @@ const SkillsetView = ({ isAppPublished = false }) => {
   const [noOfSkills, setNoOfSkills] = useState(1);
   const [skillsData, setSkillsData] = useState([]);
   const [isSaveClicked, setIsSaveClicked] = useState(false);
+  const [areInputsDisabled, setAreInputsDisabled] = useState(false);
 
   useEffect(() => {
     if (initialData.length > 0) {
@@ -61,6 +62,7 @@ const SkillsetView = ({ isAppPublished = false }) => {
   const onSavePress = () => {
     setIsSaveClicked(true);
     dispatch(setSkillsets(skillsData));
+    setAreInputsDisabled(true);
   };
 
   const AddSkillEmptyContainer = () => {
@@ -110,6 +112,7 @@ const SkillsetView = ({ isAppPublished = false }) => {
                 skillsData={skillsData}
                 setSkillsData={setSkillsData}
                 index={index}
+                areInputsDisabled={areInputsDisabled}
               />
             </div>
           ))}

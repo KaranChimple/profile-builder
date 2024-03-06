@@ -27,6 +27,7 @@ const BlogsContainer = ({
   index = 0,
   blogsData = [],
   setBlogsData = () => {},
+  areInputsDisabled = false,
 }) => {
   const imageFile = useRef(null);
 
@@ -107,6 +108,7 @@ const BlogsContainer = ({
         />
       ) : (
         <button
+          disabled={areInputsDisabled}
           onClick={onButtonClick}
           style={styles.gallerySmallIconContainer}
         >
@@ -116,6 +118,7 @@ const BlogsContainer = ({
       <Input
         placeholder="Enter title here..."
         variant="borderless"
+        disabled={areInputsDisabled}
         value={title}
         onChange={(e) => onChange(e, "title")}
         maxLength={256}
@@ -125,6 +128,7 @@ const BlogsContainer = ({
         <Input
           placeholder="Add Link"
           variant="borderless"
+          disabled={areInputsDisabled}
           value={link}
           onChange={(e) => onChange(e, "link")}
           maxLength={128}

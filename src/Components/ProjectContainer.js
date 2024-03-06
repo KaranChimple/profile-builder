@@ -38,6 +38,7 @@ const ProjectContainer = ({
   index = 0,
   projectsData = [],
   setProjectsData = () => {},
+  areInputsDisabled = false,
 }) => {
   const imageFile = useRef(null);
 
@@ -135,6 +136,7 @@ const ProjectContainer = ({
         />
       ) : (
         <button
+          disabled={areInputsDisabled}
           onClick={onButtonClick}
           style={styles.gallerySmallIconContainer}
         >
@@ -144,6 +146,7 @@ const ProjectContainer = ({
       <Input
         placeholder="Enter Project title"
         variant="borderless"
+        disabled={areInputsDisabled}
         value={title}
         onChange={onTitleChange}
         maxLength={256}
@@ -152,6 +155,7 @@ const ProjectContainer = ({
       <Input
         placeholder="Add Link"
         variant="borderless"
+        disabled={areInputsDisabled}
         value={link}
         onChange={onLinkChange}
         maxLength={128}
@@ -166,6 +170,7 @@ const ProjectContainer = ({
       <TextArea
         placeholder="Add Description"
         variant="borderless"
+        disabled={areInputsDisabled}
         value={description}
         onChange={onDescriptionChange}
         maxLength={256}

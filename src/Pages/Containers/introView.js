@@ -58,6 +58,7 @@ const LeftSection = ({
   onSiteTitleChange = () => {},
   onNameChange = () => {},
   onEmailChange = () => {},
+  areInputsDisabled = false,
 }) => {
   return (
     <div style={{ minWidth: "35%" }}>
@@ -86,6 +87,7 @@ const LeftSection = ({
           />
         ) : (
           <button
+            disabled={areInputsDisabled}
             onClick={() => onButtonClick(false)}
             style={styles.gallerySmallIconContainer}
           >
@@ -96,6 +98,7 @@ const LeftSection = ({
         <Input
           placeholder="Enter site title"
           variant="borderless"
+          disabled={areInputsDisabled}
           value={siteTitle}
           onChange={onSiteTitleChange}
           maxLength={256}
@@ -128,6 +131,7 @@ const LeftSection = ({
             />
           ) : (
             <button
+              disabled={areInputsDisabled}
               onClick={() => onButtonClick(true)}
               style={styles.galleryBigIconContainer}
             >
@@ -140,6 +144,7 @@ const LeftSection = ({
         <Input
           placeholder="Your name here"
           variant="borderless"
+          disabled={areInputsDisabled}
           value={name}
           onChange={onNameChange}
           maxLength={256}
@@ -148,6 +153,7 @@ const LeftSection = ({
         <Input
           placeholder="Enter email"
           variant="borderless"
+          disabled={areInputsDisabled}
           value={email}
           onChange={onEmailChange}
           maxLength={256}
@@ -163,6 +169,7 @@ const RightSection = ({
   subTitle = "",
   onTitleChange = () => {},
   onSubTitleChange = () => {},
+  areInputsDisabled = false,
 }) => {
   return (
     <>
@@ -170,6 +177,7 @@ const RightSection = ({
         <TextArea
           placeholder="Click to add title"
           variant="borderless"
+          disabled={areInputsDisabled}
           value={title}
           onChange={onTitleChange}
           maxLength={256}
@@ -178,6 +186,7 @@ const RightSection = ({
         <TextArea
           placeholder="Click to add subtitle"
           variant="borderless"
+          disabled={areInputsDisabled}
           value={subTitle}
           onChange={onSubTitleChange}
           maxLength={256}
@@ -203,6 +212,7 @@ const IntroView = ({ isAppPublished = false }) => {
   const [email, setEmail] = useState("");
   const [title, setTitle] = useState("");
   const [subTitle, setSubTitle] = useState("");
+  const [areInputsDisabled, setAreInputsDisabled] = useState(false);
 
   useEffect(() => {
     if (isAppPublished) {
@@ -217,6 +227,7 @@ const IntroView = ({ isAppPublished = false }) => {
           subTitle: subTitle,
         })
       );
+      setAreInputsDisabled(true);
     }
     // eslint-disable-next-line
   }, [isAppPublished]);
@@ -290,12 +301,14 @@ const IntroView = ({ isAppPublished = false }) => {
         onSiteTitleChange={onSiteTitleChange}
         onNameChange={onNameChange}
         onEmailChange={onEmailChange}
+        areInputsDisabled={areInputsDisabled}
       />
       <RightSection
         title={title}
         subTitle={subTitle}
         onTitleChange={onTitleChange}
         onSubTitleChange={onSubTitleChange}
+        areInputsDisabled={areInputsDisabled}
       />
     </Flex>
   );

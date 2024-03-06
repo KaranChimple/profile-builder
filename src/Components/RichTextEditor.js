@@ -31,6 +31,7 @@ const RichTextEditor = ({
   skillsData = [],
   setSkillsData = () => {},
   index = 0,
+  areInputsDisabled = false,
 }) => {
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
@@ -103,6 +104,7 @@ const RichTextEditor = ({
             <Input
               placeholder="Untitled"
               variant="borderless"
+              disabled={areInputsDisabled}
               value={title}
               onChange={onTitleChange}
               maxLength={256}
@@ -111,6 +113,7 @@ const RichTextEditor = ({
             <TextArea
               placeholder="Write description here..."
               variant="borderless"
+              disabled={areInputsDisabled}
               value={description}
               onChange={onDescriptionChange}
               maxLength={256}
