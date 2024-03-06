@@ -46,12 +46,12 @@ const ExperienceView = () => {
 
   useEffect(() => {
     if (
-      !!initialData?.description &&
+      !!initialData?.description ||
       (initialData?.experience || []).length > 0
     ) {
-      setDescription(initialData?.description);
-      setNoOfExperiences(initialData?.experience.length);
-      setExperienceData(initialData?.experience);
+      setDescription(initialData?.description || "");
+      setNoOfExperiences((initialData?.experience || []).length);
+      setExperienceData(initialData?.experience || []);
     }
   }, [initialData]);
 
@@ -111,7 +111,13 @@ const ExperienceView = () => {
         onCancelPress={onCancelPress}
         onSavePress={onSavePress}
       />
-      <div className="editor-container" style={{ marginLeft: "37%" }}>
+      <div
+        className="editor-container"
+        style={{
+          marginLeft: "37%",
+          border: isSaveClicked ? "0px" : "1.2px solid #828282",
+        }}
+      >
         <h1 style={styles.heading}>Experience</h1>
         <TextArea
           placeholder="Add subtext here"
@@ -131,7 +137,7 @@ const ExperienceView = () => {
                 experienceData={experienceData}
               />
             ))}
-          <AddProjectEmptyContainer />
+          {!isSaveClicked && <AddProjectEmptyContainer />}
         </Flex>
       </div>
     </>

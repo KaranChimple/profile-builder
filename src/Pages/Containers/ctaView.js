@@ -1,8 +1,11 @@
 import { Button, Flex, Input } from "antd";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { GoPlus } from "react-icons/go";
-import { RiGalleryLine } from "react-icons/ri";
-import { IoIosLink } from "react-icons/io";
+import { useDispatch, useSelector } from "react-redux";
+import BlogsContainer from "../../Components/BlogsContainer";
+import ContactContainer from "../../Components/ContactContainer";
+import SaveAndCancelButtonContainer from "../../Components/SaveAndCancelContainer";
+import { setCta } from "../../actions";
 
 const styles = {
   heading: { padding: "8px 0 8px 16px" },
@@ -10,16 +13,6 @@ const styles = {
     fontWeight: "400",
     fontSize: "14px",
     lineHeight: "24px",
-    resize: "none",
-    overflow: "hidden",
-    minHeight: window.innerHeight / 13,
-  },
-  titleInput: { fontWeight: "500", fontSize: "16px", lineHeight: "28px" },
-  linksHeader: { fontWeight: "600", fontSize: "30px", lineHeight: "28px" },
-  linksDescription: {
-    fontWeight: "500",
-    fontSize: "16px",
-    lineHeight: "30px",
     resize: "none",
     overflow: "hidden",
     minHeight: window.innerHeight / 13,
@@ -32,21 +25,6 @@ const styles = {
     maxHeight: "55px",
     resize: "none",
     overflow: "hidden",
-  },
-  gallerySmallIconContainer: {
-    margin: "16px",
-    padding: "12px",
-    border: "1px dashed #AEAEAE",
-    borderRadius: "5px",
-    backgroundColor: "#EFEFEF",
-    width: "18%",
-  },
-  projectContainer: {
-    width: "45%",
-    backgroundColor: "#ffffff",
-    border: "1px solid #DADADA",
-    borderRadius: "25px",
-    margin: "16px 0 16px 16px",
   },
   addSkillsSection: {
     border: "1px solid #DADADA",
@@ -62,21 +40,63 @@ const styles = {
     lineHeight: "24px",
     color: "#000",
   },
-  letsConnectContainer: {
-    fontWeight: "500",
-    fontSize: "16px",
-    lineHeight: "30px",
-    color: "#000",
-  },
 };
 
 const { TextArea } = Input;
 
 const CtaView = () => {
+  const dispatch = useDispatch();
+
+  const initialData = useSelector(({ cta }) => cta.data);
+
   const [noOfBlogs, setNoOfBlogs] = useState(1);
+  const [description, setDescription] = useState("");
+  const [contactTitle, setContactTitle] = useState("");
+  const [contactDescription, setContactDescription] = useState("");
+  const [contactImage, setContactimage] = useState("");
+  const [blogsData, setBlogsData] = useState([]);
+  const [isSaveClicked, setIsSaveClicked] = useState(false);
+
+  useEffect(() => {
+    if (
+      !!initialData?.description ||
+      (initialData?.blogs || []).length > 0 ||
+      Object.keys(initialData?.contactDetails || {}).length > 0
+    ) {
+      setDescription(initialData?.description || "");
+      setNoOfBlogs((initialData?.blogs || []).length);
+      setBlogsData(initialData?.blogs || []);
+      setContactTitle(initialData?.contactDetails?.title || "");
+      setContactDescription(initialData?.contactDetails?.description || "");
+      setContactimage(initialData?.contactDetails?.image || "");
+    }
+  }, [initialData]);
 
   const incrementBlogs = () => {
     setNoOfBlogs(noOfBlogs + 1);
+  };
+
+  const onCancelPress = () => {
+    setNoOfBlogs(1);
+  };
+
+  const onSavePress = () => {
+    setIsSaveClicked(true);
+    dispatch(
+      setCta({
+        description,
+        blogs: blogsData,
+        contactDetails: {
+          image: contactImage,
+          title: contactTitle,
+          description: contactDescription,
+        },
+      })
+    );
+  };
+
+  const onDescriptionChange = (e) => {
+    setDescription(e.target.value);
   };
 
   const AddProjectEmptyContainer = () => {
@@ -108,80 +128,49 @@ const CtaView = () => {
 
   return (
     <>
+      <SaveAndCancelButtonContainer
+        isSaveClicked={isSaveClicked}
+        onCancelPress={onCancelPress}
+        onSavePress={onSavePress}
+      />
       <div
         className="editor-container"
-        style={{ marginLeft: "37%", marginTop: "2%" }}
+        style={{
+          marginLeft: "37%",
+          border: isSaveClicked ? "0px" : "1.2px solid #828282",
+        }}
       >
         <h1 style={styles.heading}>Blogs & Resources</h1>
         <TextArea
           placeholder="Add subtext here"
           variant="borderless"
+          value={description}
+          onChange={onDescriptionChange}
           maxLength={256}
           style={styles.description}
         />
         <Flex wrap="wrap" vertical={false} gap={12}>
           {Array(noOfBlogs)
             .fill(1)
-            .map((i) => (
-              <div style={styles.projectContainer}>
-                <Flex
-                  align="center"
-                  justify="center"
-                  style={styles.gallerySmallIconContainer}
-                >
-                  <RiGalleryLine size={16} />
-                </Flex>
-                <Input
-                  placeholder="Enter title here..."
-                  variant="borderless"
-                  maxLength={256}
-                  style={styles.titleInput}
-                />
-                <Button type="link" style={{ marginBottom: "36px" }}>
-                  <IoIosLink
-                    size={"10px"}
-                    color="#0085FF"
-                    style={{ marginRight: "4px" }}
-                  />
-                  Add Link
-                </Button>
-              </div>
+            .map((i, index) => (
+              <BlogsContainer
+                index={index}
+                blogsData={blogsData}
+                setBlogsData={setBlogsData}
+              />
             ))}
-          <AddProjectEmptyContainer />
+          {!isSaveClicked && <AddProjectEmptyContainer />}
         </Flex>
       </div>
-      <div
-        className="editor-container"
-        style={{ marginLeft: "37%", marginTop: "2%" }}
-      >
-        <Input
-          placeholder="Enter title here..."
-          variant="borderless"
-          maxLength={256}
-          style={styles.linksHeader}
-        />
-        <TextArea
-          placeholder="Add subtext here"
-          variant="borderless"
-          maxLength={256}
-          style={styles.linksDescription}
-        />
-        <Flex
-          vertical={false}
-          align="center"
-          gap={12}
-          style={styles.letsConnectContainer}
-        >
-          <Flex
-            align="center"
-            justify="center"
-            style={{ ...styles.gallerySmallIconContainer, ...{ width: "8%" } }}
-          >
-            <RiGalleryLine size={16} />
-          </Flex>
-          Let's connect
-        </Flex>
-      </div>
+      <ContactContainer
+        contactTitle={contactTitle}
+        setContactTitle={setContactTitle}
+        contactDescription={contactDescription}
+        setContactDescription={setContactDescription}
+        contactImage={contactImage}
+        setContactimage={setContactimage}
+        isSaveClicked={isSaveClicked}
+      />
     </>
   );
 };
