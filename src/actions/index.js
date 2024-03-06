@@ -13,3 +13,24 @@ export const setSkillsets = (data) => {
     payload: data,
   };
 };
+
+export const setProjects = (data) => {
+  return {
+    type: ACTION_TYPES.SET_PROJECTS,
+    payload: data,
+  };
+};
+
+export const setExperience = (data) => {
+  return {
+    type: ACTION_TYPES.SET_EXPERIENCE,
+    payload: data,
+  };
+};
+
+export const setCta = (data) => {
+  return {
+    type: ACTION_TYPES.SET_CTA,
+    payload: data,
+  };
+};

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Button, Flex } from "antd";
 import { GoPlus } from "react-icons/go";
 import RichTextEditor from "../../Components/RichTextEditor";
@@ -48,6 +48,13 @@ const SkillsetView = () => {
   const [noOfSkills, setNoOfSkills] = useState(1);
   const [skillsData, setSkillsData] = useState([]);
   const [isSaveClicked, setIsSaveClicked] = useState(false);
+
+  useEffect(() => {
+    if (initialData.length > 0) {
+      setNoOfSkills(initialData.length);
+      setSkillsData(initialData);
+    }
+  }, [initialData]);
 
   const incrementSkills = () => {
     setNoOfSkills(noOfSkills + 1);

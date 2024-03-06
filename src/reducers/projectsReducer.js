@@ -1,16 +1,16 @@
 import { ACTION_TYPES } from "../actions/ActionTypes";
 
 const initialState = {
-  data: [],
+  data: {},
 };
 
-const skillsetsReducer = (state = initialState, action) => {
+const projectsReducer = (state = initialState, action) => {
   switch (action.type) {
-    case ACTION_TYPES.SET_SKILL_SETS_DATA:
+    case ACTION_TYPES.SET_PROJECTS:
       return { ...state, data: action.payload };
     default:
       return state;
   }
 };
 
-export default skillsetsReducer;
+export default projectsReducer;
